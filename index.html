@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontier Forge LLC — Outdoor Recreation Software</title>
+  <meta name="description" content="Frontier Forge LLC develops data-driven software for hunters, archers, and outdoor enthusiasts. Home of ArrowForge." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:      #2D6A4F;
+      --brand-light:#52B788;
+      --brand-dark: #1B4332;
+      --bg:         #F9FAFB;
+      --surface:    #FFFFFF;
+      --text:       #111827;
+      --muted:      #6B7280;
+      --border:     #E5E7EB;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--brand);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--brand); }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 700px;
+      margin: 88px auto 0;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: #D1FAE5;
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--brand); }
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--brand-dark); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      background: var(--surface);
+      transition: border-color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--brand); color: var(--brand); }
+
+    /* ── Products ── */
+    .products {
+      max-width: 900px;
+      margin: 96px auto 0;
+      padding: 0 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .section-title {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card.featured {
+      border-color: var(--brand-light);
+      background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 60%);
+    }
+    .product-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .product-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--brand);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .product-icon.dim {
+      background: #F3F4F6;
+      color: var(--muted);
+    }
+    .product-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .product-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-top: 4px;
+    }
+    .badge-live { background: #D1FAE5; color: var(--brand-dark); }
+    .badge-soon { background: #F3F4F6; color: var(--muted); }
+    .product-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .product-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .product-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand-dark);
+      background: #D1FAE5;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .product-tag.gray {
+      color: var(--muted);
+      background: #F3F4F6;
+    }
+    .product-link {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .product-link:hover { color: var(--brand-dark); }
+    .coming-soon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 180px;
+    }
+    .coming-soon-card .product-icon { margin-bottom: 14px; }
+    .coming-soon-card .product-name { font-size: 16px; }
+    .coming-soon-card .product-desc { font-size: 13px; margin-bottom: 0; }
+
+    /* ── Mission ── */
+    .mission {
+      max-width: 680px;
+      margin: 96px auto 0;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .mission-body {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .mission-body strong { color: var(--text); font-weight: 700; }
+
+    /* ── Values ── */
+    .values {
+      max-width: 900px;
+      margin: 56px auto 0;
+      padding: 0 24px;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+    .value-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .value-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .value-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .value-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Contact ── */
+    .contact {
+      max-width: 560px;
+      margin: 96px auto 0;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .contact-box {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      margin-top: 20px;
+    }
+    .contact-box p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .contact-email {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .contact-email:hover { color: var(--brand-dark); }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 100px;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-links a:hover { color: var(--brand); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">&#x1F3AF;</div>
+      <span class="nav-logo-text">Frontier Forge LLC</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a id="email-nav" href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <span class="hero-eyebrow">Outdoor Recreation Software</span>
+    <h1>Built for the field. <span>Backed by data.</span></h1>
+    <p>Frontier Forge LLC develops free and AI-enabled apps for hunters, archers, and outdoor enthusiasts — tools that sharpen performance and build confidence before the moment counts.</p>
+    <div class="cta-group">
+      <a href="https://arrowforgeapp.com" class="btn-primary">
+        &#x1F3F9;&nbsp; See ArrowForge
+      </a>
+      <a id="email-cta" href="#" class="btn-secondary">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <p class="section-label">Our Products</p>
+    <h2 class="section-title">Apps built for the field</h2>
+
+    <div class="product-grid">
+
+      <div class="product-card featured">
+        <div class="product-card-header">
+          <div class="product-icon">&#x1F3F9;</div>
+          <div>
+            <div class="product-name">ArrowForge</div>
+            <span class="product-badge badge-live">Live on iOS</span>
+          </div>
+        </div>
+        <p class="product-desc">
+          A free, offline-first, and AI-enabled app that helps archers and bow techs of all levels build, tune, and analyze arrow setups with precision. From FOC and spine recommendations to trajectory modeling and pursuit effectiveness ratings — pro-level insights instantly.
+        </p>
+        <div class="product-tags">
+          <span class="product-tag">Free tier</span>
+          <span class="product-tag">Offline-first</span>
+          <span class="product-tag">AI-powered</span>
+          <span class="product-tag">iOS</span>
+        </div>
+        <a href="https://arrowforgeapp.com" class="product-link">Visit arrowforgeapp.com &#x2192;</a>
+      </div>
+
+      <div class="product-card coming-soon-card">
+        <div class="product-icon dim">&#x1F52D;</div>
+        <div class="product-name">More Coming Soon</div>
+        <span class="product-badge badge-soon" style="margin-bottom: 12px;">In Development</span>
+        <p class="product-desc">Future apps under the Frontier Forge family are added regularly — all focused on the outdoors.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="mission" id="mission">
+    <p class="section-label">Our Mission</p>
+    <h2 class="section-title">Why we build</h2>
+    <p class="mission-body">
+      We're passionate about <strong>empowering hunters and target shooters</strong> with data-driven tools that improve performance, confidence, and ethical shot placement in the field. Every app we ship puts <strong>pro-level insight</strong> in the hands of everyday outdoor enthusiasts — free where it counts, powerful when you need more.
+    </p>
+  </section>
+
+  <section class="values">
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">&#x1F4F5;</div>
+        <div class="value-title">Offline-first</div>
+        <p class="value-desc">Core features work without a signal — in the field, in camp, or anywhere you go.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">&#x1F9EE;</div>
+        <div class="value-title">Transparent math</div>
+        <p class="value-desc">Every number shows the formula behind it. No black boxes — just physics and ballistics you can trust.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">&#x1F3AF;</div>
+        <div class="value-title">Free where it counts</div>
+        <p class="value-desc">Essential tools are always free. AI and advanced features are paid — never paywalling the basics.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-box">
+      <p>Questions, feedback, or partnership inquiries — we'd love to hear from you.</p>
+      <a id="email-contact" class="contact-email" href="#">loading...</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#products">Products</a>
+      <a href="#mission">Mission</a>
+      <a href="https://arrowforgeapp.com">ArrowForge</a>
+      <a href="https://arrowforgeapp.com/privacy/">Privacy</a>
+      <a href="https://arrowforgeapp.com/terms/">Terms</a>
+    </div>
+    <p>&copy; 2025 Frontier Forge LLC. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      var u = atob('YXJyb3dmb3JnZWFwcA==');
+      var d = atob('dHV0YS5pbw==');
+      var m = 'mailto:' + u + '@' + d;
+      ['email-nav', 'email-cta'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.href = m;
+      });
+      var ec = document.getElementById('email-contact');
+      if (ec) { ec.href = m; ec.textContent = u + '@' + d; }
+    })();
+  </script>
+
+</body>
+</html>
