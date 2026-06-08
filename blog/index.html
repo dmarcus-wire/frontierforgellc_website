@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Frontier Forge LLC</title>
+  <meta name="description" content="Videos, tutorials, and updates from Frontier Forge LLC — makers of ArrowForge." />
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/inter-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:      #2D6A4F;
+      --brand-light:#52B788;
+      --brand-dark: #1B4332;
+      --bg:         #F9FAFB;
+      --surface:    #FFFFFF;
+      --text:       #111827;
+      --muted:      #6B7280;
+      --border:     #E5E7EB;
+      --pin:        #92400E;
+      --pin-bg:     #FEF3C7;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--brand); }
+
+    .page-header {
+      max-width: 900px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .posts {
+      max-width: 900px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Pinned post — full-width featured card */
+    .post-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.15s;
+    }
+    .post-card:hover { border-color: var(--brand-light); }
+    .post-card.pinned {
+      border-color: #FCD34D;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 60%);
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .badge-pin  { background: var(--pin-bg); color: var(--pin); }
+    .badge-video { background: #EDE9FE; color: #5B21B6; }
+    .badge-update { background: #D1FAE5; color: var(--brand-dark); }
+    .post-date {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .post-card h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .post-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .post-read-more {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+    .post-card:hover .post-read-more { color: var(--brand-dark); }
+
+    /* Video thumbnail preview */
+    .post-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #F3F4F6;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .post-thumb-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+    }
+    .post-thumb-placeholder span { font-size: 32px; }
+    .post-thumb-placeholder p { font-size: 13px; font-weight: 600; margin: 0; }
+
+    footer {
+      margin-top: 100px;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-links a:hover { color: var(--brand); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-text">Frontier Forge LLC</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#products">Products</a></li>
+      <li><a href="/#mission">Mission</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/changelog/">Changelog</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="section-label">Frontier Forge</p>
+    <h1>Blog</h1>
+    <p>Videos, tutorials, and updates from the team.</p>
+  </div>
+
+  <div class="posts">
+
+    <!-- PINNED POST -->
+    <a href="/blog/how-to-use-arrowforge/" class="post-card pinned">
+      <div class="post-thumb">
+        <!-- Replace with: <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" alt="How to Use ArrowForge" /> -->
+        <div class="post-thumb-placeholder">
+          <span>&#x25B6;&#xFE0F;</span>
+          <p>Video coming soon</p>
+        </div>
+      </div>
+      <div class="post-meta">
+        <span class="badge badge-pin">&#x1F4CC; Pinned</span>
+        <span class="badge badge-video">Video</span>
+        <span class="post-date">June 2026</span>
+      </div>
+      <h2>How to Use ArrowForge — Full Walkthrough</h2>
+      <p>A complete guide to building and tuning your arrow setup in ArrowForge. Covers bow setup, arrow configuration, FOC, spine recommendations, AI features, and more.</p>
+      <span class="post-read-more">Watch now &#x2192;</span>
+    </a>
+
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/#products">Products</a>
+      <a href="/#mission">Mission</a>
+      <a href="/blog/">Blog</a>
+      <a href="/changelog/">Changelog</a>
+      <a href="https://arrowforgeapp.com">ArrowForge</a>
+      <a href="https://arrowforgeapp.com/privacy/">Privacy</a>
+      <a href="https://arrowforgeapp.com/terms/">Terms</a>
+    </div>
+    <p>&copy; 2026 Frontier Forge LLC. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
